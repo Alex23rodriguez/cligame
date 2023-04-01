@@ -1,3 +1,4 @@
 dist
 build
 cligame.egg-info
+__pycache__
