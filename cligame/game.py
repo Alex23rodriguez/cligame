@@ -46,7 +46,7 @@ def countdown_done(game: "Game"):
 
 
 gamemodestr = """t: timed mode. game ends when timer runs out
-n: number of questions mode. game ends when a certain number of questions,\
+n: number of questions mode. game ends after a certain number of questions,\
  regardless of right or wrong answer
 s: score mode. game ends when a certain score is reached
 m: mistake mode. game ends when a certain number of errors are made
@@ -101,9 +101,9 @@ def getparam(prompt: str, validfunc):
 class Game:
     def __init__(
         self,
-        update: Callable[[bool], tuple[bool, str]],
+        question: Callable[[bool], tuple[bool, str]],
     ):
-        self.update = update
+        self.question = question
         self.quiet = args.quiet
         self.repeat = args.repeat
         self.explain = not args.noexplain and not self.repeat
@@ -133,7 +133,9 @@ class Game:
     def _play(self):
         correct = False
         while not self._done():
-            correct, explain = self.update(self.repeat and not correct)
+            correct, explanation = self.question(self.repeat and not correct)
+            should_explain = self.explain and explanation is not None
+
             if not self.timeup:
                 if correct:
                     if not self.quiet:
@@ -142,7 +144,7 @@ class Game:
                     self.streak += 1
                 else:
                     if not self.quiet:
-                        print(f"wrong... {explain if self.explain else ''}")
+                        print(f"wrong... {explanation if should_explain else ''}")
                     self.mistakes += 1
                     self.streak = 0
 
