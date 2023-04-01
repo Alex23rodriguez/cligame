@@ -66,7 +66,7 @@ The user must provide a function that:
   - the string represents either the correct answer or an explanation on how to get the correct answer.
     - this will be shown to the user upon a wrong answer unless `noexplain` is enabled.
 
-Let's see a more complete example of the above function
+Let's see a more complete example of the above function:
 
 ```python
 x, y = randint(1, 10), randint(1, 10)
@@ -91,11 +91,11 @@ Once you've become familiar with the different game modes, you can quick-start a
 
 ### Further configuration
 
-You can customize different aspects of the game using the following flags:
+You can customize different aspects of the game by passing in the following flags when calling the script:
 
 - `-E` or `--noexplain` to disable explanations. Upon answering a question incorrectly, the correct answer won't be shown.
 - `-q` or `--quiet` to disable feedback. After answering a question, there will be no indication whether the answer was correct or not (implies `noexplain`)
-- `-r` or `--repeat` to enable repetition. Upon answering a question incorrectly, the same question will be asked until the correct answer is given. Currently, this must be handled by the function created by the user, as indicated by the `repeated` argument (implies `noexplian`)
+- `-r` or `--repeat` to enable repetition. Upon answering a question incorrectly, the same question will be asked until the correct answer is given (implies `noexplian`). Currently, this must be handled by the function created by the user
 
 ## Stats logging
 
