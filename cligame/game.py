@@ -16,7 +16,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--noexplain",
-    "-e",
+    "-E",
     action="store_true",
     help="a wrong answer won't be explained",
 )
@@ -106,7 +106,7 @@ class Game:
         self.question = question
         self.quiet = args.quiet
         self.repeat = args.repeat
-        self.explain = not args.noexplain and not self.repeat
+        self.explain = not (args.quiet or args.noexplain or self.repeat)
         self._reset()
 
     def _reset(self):
@@ -174,6 +174,16 @@ class Game:
             or (self.gamemode == "c" and self.param == self.streak)
         )
 
+    def get_flags(self):
+        ans = ""
+        if self.quiet:
+            ans += "q"
+        if self.repeat:
+            ans += "r"
+        if not self.explain:
+            ans += "E"
+        return ans
+
     def save_raw(self, file="./stats.json"):
         import json
         from pathlib import Path
@@ -182,6 +192,7 @@ class Game:
             "starttime": self.starttime,
             "gamemode": self.gamemode,
             "param": self.param,
+            "flags": self.get_flags(),
             "answers": self.raw_answers,
         }
 

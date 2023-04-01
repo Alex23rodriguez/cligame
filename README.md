@@ -68,7 +68,7 @@ Once you've become familiar with the different game modes, you can quick-start a
 You can customize different aspects of the game using the following flags:
 
 - `-q` or `--quiet` to disable feedback. After answering a question, there will be no indication whether the answer was correct or not.
-- `-e` or `--noexplain` to disable explanations. Upon answering a question incorrectly, the correct answer won't be shown.
+- `-E` or `--noexplain` to disable explanations. Upon answering a question incorrectly, the correct answer won't be shown.
 - `-r` or `--repeat` to enable repetition. Upon answering a question incorrectly, the same question will be asked until the correct answer is given. Currently, this must be handled by the function created by the user, as indicated by the `repeated` argument (will change soon).
 
 ## Stats logging
