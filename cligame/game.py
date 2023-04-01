@@ -142,12 +142,12 @@ class Game:
                 self.raw_answers.append((time(), correct))
                 if correct:
                     if not self.quiet:
-                        print("correct!")
+                        print("\tcorrect!")
                     self.score += 1
                     self.streak += 1
                 else:
                     if not self.quiet:
-                        print(f"wrong... {explanation if should_explain else ''}")
+                        print(f"\twrong... {explanation if should_explain else ''}")
                     self.mistakes += 1
                     self.streak = 0
 
@@ -157,8 +157,13 @@ class Game:
         else:
             t = int(time() - self.starttime)
 
-        print(f"time:\t{t//59} mins {t%60} seconds")
-        print(f"score:\t{self.score}/{self.score + self.mistakes}")
+        count = self.score + self.mistakes
+        avg = t // count
+
+        print(f"time:\t{t//60} mins {t%60} seconds")
+        print(f"avg:\t{avg // 60} mins {avg%60} seconds")
+        print(f"score:\t{self.score}/{count}")
+        print(f"percent:\t{self.score/count*100:.2f}%")
 
     def _done(self):
         return (
