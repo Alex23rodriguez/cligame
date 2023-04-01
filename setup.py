@@ -15,6 +15,7 @@ setuptools.setup(
     description=short_description,
     long_description=long_description,
     long_description_content_type="text/markdown",
+    url="https://github.com/Alex23rodriguez/cligame",
     packages=setuptools.find_packages(),
     keywords=["python", "cli", "game", "interactive", "cligame", "terminal", "learn"],
     classifiers=[
