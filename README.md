@@ -36,9 +36,9 @@ The currently supported game modes are as follows:
 from cligame import Game
 from random import randint
 
-# create a function that takes a boolean and returns a boolean and a string:
-def ask_question(repeated: bool) -> tuple[bool, str]:
-    # ignore repeated for now
+# create a function with the following signature: (bool) => (bool, str)
+# in this example we ignore the bool that is passed in
+def ask_question(_):
     x, y = randint(1, 10), randint(1, 10)
     ans = input(f"What is {x} + {y}?  ")
     correct_ans = str(x + y)
@@ -54,6 +54,32 @@ mygame.start()
 
 That's it! Upon running the program, you will be prompted to choose a game mode and will be quizzed accordingly.
 
+## Explanation
+
+The user must provide a function that:
+
+- takes in a boolean `repeat`
+  - this indicates if the same question as last time should be asked again
+  - for now, this functionallity must be implemented by the user
+- returns a boolean and a string
+  - the boolean indicates whether the correct answer was given
+  - the string represents either the correct answer or an explanation on how to get the correct answer.
+    - this will be shown to the user upon a wrong answer unless `noexplain` is enabled.
+
+Let's see a more complete example of the above function
+
+```python
+x, y = randint(1, 10), randint(1, 10)
+def ask_question(repeat):
+    global x, y
+    if not repeat:
+        x, y = randint(1, 10), randint(1, 10)
+
+    ans = input(f"What is {x} + {y}?  ")
+    correct_ans = str(x + y)
+    return ans == correct_ans, f"the correct answer was '{correct_ans}', but '{ans}' was given"
+```
+
 ## Command-line arguments
 
 (run `python myscript.py --help` to see all options)
@@ -67,9 +93,9 @@ Once you've become familiar with the different game modes, you can quick-start a
 
 You can customize different aspects of the game using the following flags:
 
-- `-q` or `--quiet` to disable feedback. After answering a question, there will be no indication whether the answer was correct or not.
 - `-E` or `--noexplain` to disable explanations. Upon answering a question incorrectly, the correct answer won't be shown.
-- `-r` or `--repeat` to enable repetition. Upon answering a question incorrectly, the same question will be asked until the correct answer is given. Currently, this must be handled by the function created by the user, as indicated by the `repeated` argument (will change soon).
+- `-q` or `--quiet` to disable feedback. After answering a question, there will be no indication whether the answer was correct or not (implies `noexplain`)
+- `-r` or `--repeat` to enable repetition. Upon answering a question incorrectly, the same question will be asked until the correct answer is given. Currently, this must be handled by the function created by the user, as indicated by the `repeated` argument (implies `noexplian`)
 
 ## Stats logging
 
@@ -88,8 +114,9 @@ In the future, this package will implement modules to analize the resulting outp
 
 # TODO
 
-- move `repeated` to game logic
+- move `repeat` to game logic
 - configuration without command-line arguments
 - add submodes
 - add more stats logging options
 - add stats analizer
+- add spaced repetition
