@@ -62,13 +62,12 @@ Once you've become familiar with the different game modes, you can quick-start a
 
 - `python myscript.py t 5` will start a 5 minute game.
 - `python myscript.py c 10` will start a game that ends after correctly answering 10 questions in a row.
-  and so on.
 
 ### Further configuration
 
 You can customize different aspects of the game using the following flags:
 
-- `-q` or `--quiet` to disable feedback. After answering a question, there will be no indication whether the answer was correct or not until the end of the game.
+- `-q` or `--quiet` to disable feedback. After answering a question, there will be no indication whether the answer was correct or not.
 - `-e` or `--noexplain` to disable explanations. Upon answering a question incorrectly, the correct answer won't be shown.
 - `-r` or `--repeat` to enable repetition. Upon answering a question incorrectly, the same question will be asked until the correct answer is given. Currently, this must be handled by the function created by the user, as indicated by the `repeated` argument (will change soon).
 
