@@ -118,6 +118,8 @@ class Game:
         self.endtime: float | None = None
         self.timeup = False
 
+        self.raw_answers: list[tuple[float, bool]] = []
+
     def start(self):
         self._reset()
 
@@ -137,6 +139,7 @@ class Game:
             should_explain = self.explain and explanation is not None
 
             if not self.timeup:
+                self.raw_answers.append((time(), correct))
                 if correct:
                     if not self.quiet:
                         print("correct!")
@@ -165,3 +168,24 @@ class Game:
             or (self.gamemode == "n" and self.param == self.score + self.mistakes)
             or (self.gamemode == "c" and self.param == self.streak)
         )
+
+    def save_raw(self, file="./stats.json"):
+        import json
+        from pathlib import Path
+
+        config = {
+            "starttime": self.starttime,
+            "gamemode": self.gamemode,
+            "param": self.param,
+            "answers": self.raw_answers,
+        }
+
+        if Path(file).exists():
+            with open(file, "r") as f:
+                jsn = json.load(f)
+                jsn.append(config)
+        else:
+            jsn = [config]
+
+        with open(file, "w") as f:
+            json.dump(jsn, f)

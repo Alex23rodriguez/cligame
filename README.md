@@ -71,10 +71,25 @@ You can customize different aspects of the game using the following flags:
 - `-e` or `--noexplain` to disable explanations. Upon answering a question incorrectly, the correct answer won't be shown.
 - `-r` or `--repeat` to enable repetition. Upon answering a question incorrectly, the same question will be asked until the correct answer is given. Currently, this must be handled by the function created by the user, as indicated by the `repeated` argument (will change soon).
 
+## Stats logging
+
+If you want to keep track of your performance to track your progress over time, call the `save_raw` function after the game is done:
+
+```python
+mygame = Game(ask_question)
+mygame.start()
+mygame.save_raw("my_stats.json")
+```
+
+- If no filename is provided, "stats.json" will be used by default
+  - if using this package with multiple games, be careful to store the stats in different files!
+
+In the future, this package will implement modules to analize the resulting output
+
 # TODO
 
 - move `repeated` to game logic
 - configuration without command-line arguments
-- add logging
 - add submodes
-- add statistics
+- add more stats logging options
+- add stats analizer
