@@ -1,8 +1,7 @@
+from argparse import ArgumentParser
+from collections.abc import Callable
 from threading import Timer
 from time import time
-from collections.abc import Callable
-
-from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
@@ -27,6 +26,14 @@ parser.add_argument(
     action="store_true",
     help="a wrong answer will be repeated until gotten right (overrides -e)",
 )
+
+parser.add_argument(
+    "--pause",
+    "-p",
+    action="store_true",
+    help="gives time after answering to read explanation",
+)
+
 
 args = parser.parse_args()
 
@@ -107,6 +114,7 @@ class Game:
         self.quiet = args.quiet
         self.repeat = args.repeat
         self.explain = not (args.quiet or args.noexplain or self.repeat)
+        self.pause = args.pause
         self._reset()
 
     def _reset(self):
@@ -147,9 +155,15 @@ class Game:
                     self.streak += 1
                 else:
                     if not self.quiet:
-                        print(f"\twrong... {explanation if should_explain else ''}")
+                        if should_explain:
+                            print(f"\twrong... {explanation}")
+                        else:
+                            print(f"\twrong...")
                     self.mistakes += 1
                     self.streak = 0
+
+                if self.pause:
+                    input("<press enter to continue>")
 
         print("===stats===")
         if self.endtime:
