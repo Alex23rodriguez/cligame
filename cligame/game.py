@@ -52,19 +52,22 @@ def countdown_done(game: "Game"):
     print("\n\r-------TIME'S UP!!-------")  # , end="")
 
 
-gamemodestr = """t: timed mode. game ends when timer runs out
+gamemodestr = (
+    """t: timed mode. game ends when timer runs out
 n: number of questions mode. game ends after a certain number of questions,\
  regardless of right or wrong answer
 s: score mode. game ends when a certain score is reached
 m: mistake mode. game ends when a certain number of errors are made
 c: consecutive mode. game ends after correctly answering n questions in a row
-mode: """, [
-    "t",
-    "n",
-    "s",
-    "m",
-    "c",
-]
+mode: """,
+    [
+        "t",
+        "n",
+        "s",
+        "m",
+        "c",
+    ],
+)
 
 
 def getmainmode():
