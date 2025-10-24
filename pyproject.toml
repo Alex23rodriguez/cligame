@@ -1,6 +1,6 @@
 [project]
 name = "cligame"
-version = "0.2.2"
+version = "0.2.3"
 description = """
 Python library with no extra dependencies \
 to easily create CLI interactive games to learn or practice new concepts, \
